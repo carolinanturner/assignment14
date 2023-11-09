@@ -1,7 +1,7 @@
 //Carolina Turner CSCE 242
 const getJSON = async ()=>{
     try{
-        let response = await fetch("https://node-project1-8gtg.onrender.com/api/beverages");
+        let response = await fetch("https://assignment14.onrender.com/api/beverages");
        return await response.json();
     }   catch (error){
     console.log("could not retrieve json");
@@ -27,7 +27,7 @@ const beverageJSON = await getJSON();
 
         let img = document.createElement("img");
         section.append(img);
-        img.src="https://node-project1-8gtg.onrender.com/" + beverage.img;
+        img.src="https://assignment14.onrender.com/" + beverage.img;
 
         let ul = document.createElement("ul");
         section.append(ul);
