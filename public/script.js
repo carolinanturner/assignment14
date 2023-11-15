@@ -101,20 +101,7 @@ const displayDetails = (beverage) => {
     const recommendationsP = document.getElementById("recommendation-boxes");
     recommendationsP.innerHTML = "";
     console.log(beverage.recommendation);
-    
-    for (let i in beverage.flavors) {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.value = beverage.flavors[i];
-        flavorsP.append(input);
-      }
-  
-      for (let i in beverage.recommendation) {
-          const input = document.createElement("input");
-          input.type = "text";
-          input.value = beverage.recommendation[i];
-          recommendationsP.append(input);
-        }
+
   };
 
   const addEditBeverage = async (e) => {
@@ -133,10 +120,10 @@ const displayDetails = (beverage) => {
         formData.delete("beverageId");
         formData.delete("img");
 
-        response = await fetch("/api/beverages", {
+        response = await fetch("https://assignment14.onrender.com/api/beverages"), {
             method : "POST",
             body : formData,
-        });
+        };
     }
     
     if(response.status != 200){
@@ -203,3 +190,19 @@ window.onload = () => {
       document.querySelector(".dialog").classList.add("transparent");
     };
   };
+
+  /*
+  for (let i in beverage.flavors) {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = beverage.flavors[i];
+    flavorsP.append(input);
+  }
+
+  for (let i in beverage.recommendation) {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.value = beverage.recommendation[i];
+      recommendationsP.append(input);
+    }
+    */

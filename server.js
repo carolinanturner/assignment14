@@ -78,12 +78,12 @@ let beverages = [
 ];
 
 
-app.get("/api/beverages", (req, res) =>{  
+app.get("https://assignment14.onrender.com/api/beverages", (req, res) =>{  
     res.send(beverages);
   });
 
 
-app.post("/api/beverages", upload.single("img"), (req,res)=>{
+app.post("https://assignment14.onrender.com/api/beverages", upload.single("img"), (req,res)=>{
     const result = validateBeverage(req.body);
 
     if(result.error){
