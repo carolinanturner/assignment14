@@ -1,7 +1,7 @@
 //Carolina Turner CSCE 242
 const getBeverages= async ()=>{
     try{
-        return (await fetch("https://assignment14.onrender.com/api/beverages/")).json();
+        return (await fetch("/api/beverages")).json();
     }   catch(error){
         console.log(error);
         return "";
@@ -120,7 +120,7 @@ const displayDetails = (beverage) => {
         formData.delete("beverageId");
         formData.delete("img");
 
-        response = await fetch("https://assignment14.onrender.com/api/beverages"), {
+        response = await fetch("/api/beverages"), {
             method : "POST",
             body : formData,
         };
