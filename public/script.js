@@ -1,7 +1,7 @@
 //Carolina Turner CSCE 242
 const getBeverages= async ()=>{
     try{
-        return (await fetch("/api/beverages")).json();
+        return (await fetch("https://assignment14.onrender.com/api/beverages")).json();
     }   catch(error){
         console.log(error);
         return "";
@@ -120,11 +120,22 @@ const displayDetails = (beverage) => {
         formData.delete("beverageId");
         formData.delete("img");
 
-        response = await fetch("/api/beverages"), {
+        response = await fetch("https://assignment14.onrender.com/api/beverages"), {
             method : "POST",
             body : formData,
         };
     }
+    else {
+      console.log("editting");
+      response = await fetch(`https://assignment14.onrender.com/api/beverages${form.beverageId.value}`, {
+        method: "PUT",
+        body: formData,
+      });
+    }
+    let result = await response.json(); 
+    if (form.beverageId.value != -1) {
+      const beverage = await getBeverage(form.beverageId.value);
+      displayDetails(beverage);
     
     if(response.status != 200){
         console.log("Error contacting server!");
@@ -135,7 +146,7 @@ const displayDetails = (beverage) => {
     resetForm();
     showBeverages();
 };
-
+}
 const getFlavors = () => {
     const inputs = document.querySelectorAll("#flavor-boxes input");
     const flavors = [];
@@ -146,6 +157,7 @@ const getFlavors = () => {
     console.log(flavors);
     return flavors;
   };
+
 
 
 
@@ -190,19 +202,3 @@ window.onload = () => {
       document.querySelector(".dialog").classList.add("transparent");
     };
   };
-
-  /*
-  for (let i in beverage.flavors) {
-    const input = document.createElement("input");
-    input.type = "text";
-    input.value = beverage.flavors[i];
-    flavorsP.append(input);
-  }
-
-  for (let i in beverage.recommendation) {
-      const input = document.createElement("input");
-      input.type = "text";
-      input.value = beverage.recommendation[i];
-      recommendationsP.append(input);
-    }
-    */
