@@ -110,56 +110,54 @@ const displayDetails = (beverage) => {
     const form = document.getElementById("add-edit-beverage-form");
     const formData = new FormData(form);
     formData.append("flavors", getFlavors());
-
     console.log(...formData);
-    
     let response;
 
-    //new beverage
+    //if is new beverage
     if (form.beverageId.value==-1){
         formData.delete("beverageId");
         formData.delete("img");
 
-        response = await fetch("https://assignment14.onrender.com/api/beverages"), {
+        response = await fetch("/api/beverages", {
             method : "POST",
             body : formData,
-        };
+        });
     }
     else {
       console.log("editting");
-      response = await fetch(`https://assignment14.onrender.com/api/beverages${form.beverageId.value}`, {
+      response = await fetch(`/api/beverages/${form.beverageId.value}`, {
         method: "PUT",
         body: formData,
       });
     }
+    
+    if(response.status != 200){
+      console.log("Error contacting server!");
+      return;
+  }
+  document.querySelector(".dialog").classList.add("transparent");
+  resetForm();
+  showBeverages();
+    
     let result = await response.json(); 
     if (form.beverageId.value != -1) {
       const beverage = await getBeverage(form.beverageId.value);
       displayDetails(beverage);
-    
-    if(response.status != 200){
-        console.log("Error contacting server!");
-        return;
-    }
-
-    document.querySelector(".dialog").classList.add("transparent");
-    resetForm();
-    showBeverages();
+  
 };
 }
+
+
 const getFlavors = () => {
-    const inputs = document.querySelectorAll("#flavor-boxes input");
-    const flavors = [];
-  
-    inputs.forEach((input) => {
-      flavors.push(input.value);
-    });
-    console.log(flavors);
-    return flavors;
-  };
+  const inputs = document.querySelectorAll("#flavor-boxes input");
+  const flavors = [];
 
-
-
+  inputs.forEach((input) => {
+    flavors.push(input.value);
+  });
+  console.log(flavors);
+  return flavors;
+};
 
   const resetForm = () => {
     const form = document.getElementById("add-edit-beverage-form");
